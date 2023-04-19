@@ -1,0 +1,16 @@
+Fold = 5
+DrugAE_InputDim = 1213
+CELLAE_InputDim = 5000
+DrugAE_OutputDim = 128
+CellAE_OutputDim = 256
+DrugAE_OutputDim_Optional = [32, 64, 128, 256, 512]
+CellAE_OutputDim_Optional = [128, 256, 512, 1024, 2048]
+DrugAE_SaveBase = "save/AutoEncoder/DrugAE_"
+CellAE_SaveBase = "save/AutoEncoder/CellLineAE_"
+DrugAE_Result = "result/DrugAE_result.txt"
+CellLineAE_Result = "result/CellLineAE_result.txt"
+MTLSA_SaveBase = "save/MTLSA/"
+MTLSA_Result = "result/MTLSA_result.txt"
+MTLSynergy_SaveBase = "save/MTLSynergy/"
+MTLSynergy_Result = "result/MTLSynergy_result.txt"
+MTLSynergy_InputDim = 384
