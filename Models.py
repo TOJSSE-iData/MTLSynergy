@@ -62,7 +62,7 @@ class CellLineAE(Module):
 
 class MTLSynergy(Module):
     def __init__(self, hidden_neurons, input_dim=MTLSynergy_InputDim):
-        super(MTLSynergy, self).__init__()  # 调用父类函数
+        super(MTLSynergy, self).__init__() 
         self.drug_cell_line_layer = Sequential(
             Linear(input_dim, hidden_neurons[0]),
             BatchNorm1d(hidden_neurons[0]),
@@ -85,10 +85,10 @@ class MTLSynergy(Module):
             ReLU(True)
         )
         self.synergy_out_1 = Linear(128, 1)
-        self.synergy_out_2 = Sequential(Linear(128, 2), Softmax(dim=1))  # 二分类
+        self.synergy_out_2 = Sequential(Linear(128, 2), Softmax(dim=1))
         self.sensitivity_out_1 = Linear(64, 1)
-        self.sensitivity_out_2 = Sequential(Linear(64, 2), Softmax(dim=1))  # 二分类
-        init_weights(self._modules)  # 参数初始化
+        self.sensitivity_out_2 = Sequential(Linear(64, 2), Softmax(dim=1))
+        init_weights(self._modules)
 
     def forward(self, d1, d2, c_exp):
         d1_c = self.drug_cell_line_layer(torch.cat((d1, c_exp), 1))
@@ -101,50 +101,3 @@ class MTLSynergy(Module):
         d1_sen_out_2 = self.sensitivity_out_2(d1_sen)
         return syn_out_1.squeeze(-1), d1_sen_out_1.squeeze(-1), syn_out_2, d1_sen_out_2
 
-
-class OnlySynergy(Module):
-    def __init__(self, hidden_neurons, input_dim):
-        super(OnlySynergy, self).__init__()  # 调用父类函数
-        self.synergy_layer = Sequential(
-            Linear(input_dim, hidden_neurons[0]),
-            BatchNorm1d(hidden_neurons[0]),
-            ReLU(True),
-            Linear(hidden_neurons[0], hidden_neurons[1]),
-            ReLU(True),
-            Dropout(0.5),  # 0.5
-            Linear(hidden_neurons[1], 128),
-            ReLU(True)
-        )
-        self.synergy_out_1 = Linear(128, 1)  # synergy score
-        self.synergy_out_2 = Sequential(Linear(128, 2), Softmax(dim=1))  # 二分类
-        init_weights(self._modules)  # 参数初始化
-
-    def forward(self, d1, d2, c_exp):
-        syn = self.synergy_layer(torch.cat((d1, d2, c_exp), 1))
-        syn_out_1 = self.synergy_out_1(syn)
-        syn_out_2 = self.synergy_out_2(syn)
-        return syn_out_1.squeeze(-1), syn_out_2
-
-
-class OnlySensitivity(Module):
-    def __init__(self, hidden_neurons, input_dim):
-        super(OnlySensitivity, self).__init__()  # 调用父类函数
-        self.sensitivity_layer = Sequential(
-            Linear(input_dim, hidden_neurons[0]),
-            BatchNorm1d(hidden_neurons[0]),
-            ReLU(True),
-            Linear(hidden_neurons[0], hidden_neurons[1]),
-            ReLU(True),
-            Dropout(0.5),  # 0.5
-            Linear(hidden_neurons[1], 64),
-            ReLU(True)
-        )
-        self.sensitivity_out_1 = Linear(hidden_neurons[1], 1)  # synergy score
-        self.sensitivity_out_2 = Sequential(Linear(hidden_neurons[1], 2), Softmax(dim=1))  # 二分类
-        init_weights(self._modules)  # 参数初始化
-
-    def forward(self, d, c_exp):
-        sensitivity = self.sensitivity_layer(torch.cat((d, c_exp), 1))
-        sensitivity_out_1 = self.sensitivity_out_1(sensitivity)
-        sensitivity_out_2 = self.sensitivity_out_2(sensitivity)
-        return sensitivity_out_1.squeeze(-1), sensitivity_out_2
