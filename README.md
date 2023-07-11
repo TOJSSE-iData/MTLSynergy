@@ -23,3 +23,15 @@ Run the AEtrain.py first to pre-train a drug encoder and a cell line encoder, an
 **cell_line_features.csv**:  Features of 175 cell lines, 5000-dimensional vector for each cell lines.
 
 **oneil_summary_idx.csv**:  22 737 samples from O'Neil，each sample consists of two drugs id, a cell line id, synergy score of the drug combination on the cell line, respective sensitivity scores of the two drugs on the cell line.  
+
+
+
+## Source code of the comparative methods
+
+PRODeepSyn: https://github.com/TOJSSE-iData/PRODeepSyn
+
+TranSynergy: https://github.com/qiaoliuhub/drug_combination
+
+AuDnnSynergy: The authors did not provide the source code.
+
+DeepSynergy: https://github.com/KristinaPreuer/DeepSynergy
