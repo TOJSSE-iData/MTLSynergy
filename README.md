@@ -24,6 +24,28 @@ Run the AEtrain.py first to pre-train a drug encoder and a cell line encoder, an
 
 **oneil_summary_idx.csv**:  22 737 samples from O'Neil，each sample consists of two drugs id, a cell line id, synergy score of the drug combination on the cell line, respective sensitivity scores of the two drugs on the cell line.  
 
+## Training files
+
+**AEtrain.py**: used to pre-train a drug encoder and a cell line encoder.
+
+**MTLSynergytrain.py**: used to train MTLSynergy in the *Leave Drug Combinations Out* scenario.
+
+**MTLSynergy_LeaveCellOut.py**: used to train MTLSynergy in the *Leave Cell Lines Out* scenario.
+
+**MTLSynergy_LeaveDrugOut.py**: used to train MTLSynergy in the *Leave Drugs Out* scenario.
+
+**GBMtrain.py**: used to train Gradient Boosting Machine in the *Leave Drug Combinations Out* scenario.
+
+**GBM_LeaveCellOut.py**: used to train Gradient Boosting Machine in the *Leave Cell Lines Out* scenario.
+
+**GBM_LeaveDrugOut.py**: used to train Gradient Boosting Machine in the *Leave Drugs Out* scenario.
+
+**RFtrain.py**: used to train Random Forest in the *Leave Drug Combinations Out* scenario.
+
+**RF_LeaveCellOut.py**: used to train Random Forest in the *Leave Cell Lines Out* scenario.
+
+**RF_LeaveDrugOut.py**: used to train Random Forest in the *Leave Drugs Out* scenario.
+
 
 
 ## Source code of the comparative methods
